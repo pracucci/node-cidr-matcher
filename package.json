@@ -1,10 +1,18 @@
 {
   "name": "cidr-matcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Fast CIDR matcher. Given an input IPv4 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation.",
   "main": "index.js",
+  "homepage": "https://github.com/pracucci/node-cidr-matcher",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/pracucci/node-cidr-matcher.git"
+  },
+  "bugs": {
+    "url": "https://github.com/pracucci/node-cidr-matcher/issues"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ${MOCHA_OPTIONS} -R spec --recursive ./test"
   },
   "keywords": [
     "ip",
@@ -22,8 +30,5 @@
   "devDependencies": {
     "chai": "^3.4.0",
     "mocha": "^2.3.3"
-  },
-  "scripts": {
-    "test": "mocha ${MOCHA_OPTIONS} -R spec --recursive ./test"
   }
 }
