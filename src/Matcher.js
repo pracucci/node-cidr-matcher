@@ -14,6 +14,11 @@ var Matcher = function(classes) {
 };
 
 Matcher.prototype.addNetworkClass = function(cidr) {
+    // Ensure the input string is a CIDR
+    if (ip.isV4Format(cidr)) {
+        cidr += '/32';
+    }
+
     // Check if already added
     if (this.ranges[cidr]) {
         return;

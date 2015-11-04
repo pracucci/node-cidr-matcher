@@ -6,6 +6,14 @@ describe('Matcher', function() {
 
     describe('contains()', function() {
 
+        it('should return true if an IPv4 matches a single IP address', function() {
+            var matcher = new Matcher([ '192.168.1.2' ]);
+
+            assert.ok(!matcher.contains('192.168.1.1'));
+            assert.ok(matcher.contains('192.168.1.2'));
+            assert.ok(!matcher.contains('192.168.1.3'));
+        });
+
         it('should return true if an IPv4 matches a /32 network range', function() {
             var matcher = new Matcher([ '192.168.1.2/32' ]);
 
