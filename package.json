@@ -1,0 +1,29 @@
+{
+  "name": "cidr-matcher",
+  "version": "1.0.0",
+  "description": "Fast CIDR matcher. Given an input IPv4 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ip",
+    "address",
+    "cidr",
+    "network",
+    "class",
+    "subnet"
+  ],
+  "author": "Marco Pracucci",
+  "license": "MIT",
+  "dependencies": {
+    "ip": "^1.0.2"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3"
+  },
+  "scripts": {
+    "test": "mocha ${MOCHA_OPTIONS} -R spec --recursive ./test"
+  }
+}
