@@ -28,7 +28,7 @@ Matcher.prototype.addNetworkClass = function(cidr) {
 
     // Add
     if (info) {
-        this.ranges[cidr] = [ ip.toLong(info.firstAddress), ip.toLong(info.lastAddress) ];
+        this.ranges[cidr] = [ ip.toLong(info.networkAddress), ip.toLong(info.broadcastAddress) ];
     }
 };
 
