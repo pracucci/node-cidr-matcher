@@ -27,10 +27,10 @@ describe('Matcher', function() {
 
             assert.ok(!matcher.contains('192.168.0.1'));
 
-            // TODO assert.ok(matcher.contains('192.168.1.0'));
+            assert.ok(matcher.contains('192.168.1.0'));
             assert.ok(matcher.contains('192.168.1.1'));
             assert.ok(matcher.contains('192.168.1.2'));
-            // TODO assert.ok(matcher.contains('192.168.1.3'));
+            assert.ok(matcher.contains('192.168.1.3'));
             assert.ok(!matcher.contains('192.168.1.4'));
         });
 
@@ -43,14 +43,17 @@ describe('Matcher', function() {
             assert.ok(!matcher.contains('192.168.2.1'));
             assert.ok(!matcher.contains('192.168.2.254'));
 
+            assert.ok(matcher.contains('192.168.1.0'));
             assert.ok(matcher.contains('192.168.1.1'));
             assert.ok(matcher.contains('192.168.1.128'));
             assert.ok(matcher.contains('192.168.1.254'));
+            assert.ok(matcher.contains('192.168.1.255'));
         });
 
         it('should return true if an IPv4 matches a /16 network range', function() {
             var matcher = new Matcher([ '192.168.1.0/16' ]);
 
+            assert.ok(matcher.contains('192.168.0.0'));
             assert.ok(matcher.contains('192.168.0.1'));
             assert.ok(matcher.contains('192.168.0.254'));
 
@@ -59,6 +62,7 @@ describe('Matcher', function() {
 
             assert.ok(matcher.contains('192.168.255.1'));
             assert.ok(matcher.contains('192.168.255.254'));
+            assert.ok(matcher.contains('192.168.255.255'));
 
             assert.ok(!matcher.contains('192.167.0.1'));
             assert.ok(!matcher.contains('192.169.0.1'));
