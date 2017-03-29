@@ -108,6 +108,18 @@ describe('Matcher', function() {
             assert.ok(matcher.contains('192.168.1.128'));
             assert.ok(matcher.contains('192.168.1.254'));
         });
+
+        it('should return true if an IPv4 matches a 0.0.0.0 range', function() {
+            var matcher = new Matcher([ '0.0.0.0/24' ]);
+
+            assert.ok(!matcher.contains('butt'));
+            assert.ok(!matcher.contains('192.168.2.1'));
+            assert.ok(!matcher.contains('192.168.2.254'));
+
+            assert.ok(matcher.contains('0.0.0.0'));
+            assert.ok(matcher.contains('0.0.0.10'));
+            assert.ok(matcher.contains('0.0.0.254'));
+        });
     });
 
 
