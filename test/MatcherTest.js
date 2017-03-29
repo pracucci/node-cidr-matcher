@@ -6,6 +6,12 @@ describe('Matcher', function() {
 
     describe('contains()', function() {
 
+        it('should return false with a bad IPv4 address', function() {
+            var matcher = new Matcher([ '192.168.1.2' ]);
+
+            assert.ok(!matcher.contains('0.0.0.192.168.1.2'));
+        });
+
         it('should return true if an IPv4 matches a single IP address', function() {
             var matcher = new Matcher([ '192.168.1.2' ]);
 
