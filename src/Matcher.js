@@ -42,11 +42,12 @@ Matcher.prototype.removeNetworkClass = function(cidr) {
 };
 
 Matcher.prototype.contains = function(addr) {
-    // Convert to decimal
-    addr = ip.toLong(addr);
-    if (!addr) {
+    if (!ip.isV4Format(addr)) {
         return false;
     }
+
+    // Convert to decimal
+    addr = ip.toLong(addr);
 
     for (var i in this.ranges) {
         if (this.ranges.hasOwnProperty(i) && addr >= this.ranges[i][0] && addr <= this.ranges[i][1]) {
