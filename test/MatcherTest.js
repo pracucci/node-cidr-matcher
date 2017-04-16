@@ -1,6 +1,5 @@
-var assert  = require('chai').assert,
+var assert  = require('assert'),
     Matcher = require('../src/Matcher.js');
-
 
 describe('Matcher', function() {
 
