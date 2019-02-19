@@ -25,7 +25,7 @@
   "author": "Marco Pracucci",
   "license": "MIT",
   "dependencies": {
-    "ip": "^1.0.2"
+    "ip": "^1.1.5"
   },
   "devDependencies": {
     "mocha": "^2.3.3"
