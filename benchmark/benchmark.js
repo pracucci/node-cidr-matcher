@@ -83,26 +83,26 @@ runBenchmark("node-cidr-matcher", "master", "ipv6", (cidrs, ips) => {
     }
 });
 
-// runBenchmark("is-in-subnet", "1.9.0", "ipv4", (cidrs, ips) => {
-//     for (let i = 0; i < ips.length; i++) {
-//         isInSubnet(ips[i], cidrs);
-//     }
-// });
+runBenchmark("is-in-subnet", "1.9.0", "ipv4", (cidrs, ips) => {
+    for (let i = 0; i < ips.length; i++) {
+        isInSubnet(ips[i], cidrs);
+    }
+});
 
-// runBenchmark("is-in-subnet", "1.9.0", "ipv6", (cidrs, ips) => {
-//     for (let i = 0; i < ips.length; i++) {
-//         isInSubnet(ips[i], cidrs);
-//     }
-// });
+runBenchmark("is-in-subnet", "1.9.0", "ipv6", (cidrs, ips) => {
+    for (let i = 0; i < ips.length; i++) {
+        isInSubnet(ips[i], cidrs);
+    }
+});
 
-// runBenchmark("ip-range-check", "0.0.2", "ipv4", (cidrs, ips) => {
-//     for (let i = 0; i < ips.length; i++) {
-//         ipRangeCheck(ips[i], cidrs);
-//     }
-// });
+runBenchmark("ip-range-check", "0.0.2", "ipv4", (cidrs, ips) => {
+    for (let i = 0; i < ips.length; i++) {
+        ipRangeCheck(ips[i], cidrs);
+    }
+});
 
-// runBenchmark("ip-range-check", "0.0.2", "ipv6", (cidrs, ips) => {
-//     for (let i = 0; i < ips.length; i++) {
-//         ipRangeCheck(ips[i], cidrs);
-//     }
-// });
+runBenchmark("ip-range-check", "0.0.2", "ipv6", (cidrs, ips) => {
+    for (let i = 0; i < ips.length; i++) {
+        ipRangeCheck(ips[i], cidrs);
+    }
+});
