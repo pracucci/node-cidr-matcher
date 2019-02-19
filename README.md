@@ -1,6 +1,6 @@
 # CIDR Matcher
 
-Fast CIDR matcher. Given an input IPv4 or IPv6 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation. This module is based upon the great [node-ip](https://github.com/indutny/node-ip.git) module.
+Fast CIDR matcher. Given an input IPv4 or IPv6 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation. This module is based upon the great [ip6addr](https://github.com/joyent/node-ip6addr) module.
 
 
 ## Installation
