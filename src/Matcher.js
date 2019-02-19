@@ -1,11 +1,11 @@
-var ip = require('ip');
+var ip6addr = require('ip6addr');
 
 
 var Matcher = function(classes) {
     classes = classes || [];
 
     // Init
-    this.ranges = {};
+    this.ranges = [];
 
     // Import network classes
     for (var i = 0; i < classes.length; i++) {
@@ -13,44 +13,57 @@ var Matcher = function(classes) {
     }
 };
 
-Matcher.prototype.addNetworkClass = function(cidr) {
-    // Ensure the input string is a CIDR
-    if (ip.isV4Format(cidr)) {
-        cidr += '/32';
-    }
+Matcher.prototype.addNetworkClass = function(input) {
+    var cidr    = ip6addr.createCIDR(input);
+    var v4First = null;
+    var v4Last  = null;
 
-    // Check if already added
-    if (this.ranges[cidr]) {
-        return;
-    }
+    // Try to get the first and last IPv4 in the range (it will throw
+    // an Error if the CIDR it's outside the IPv4 network space)
+    try {
+        v4First = cidr.address().toLong();
+        v4Last  = cidr.broadcast().toLong();
+    } catch(ignored) {}
 
-    var info = ip.cidrSubnet(cidr);
-
-    // Add
-    if (info) {
-        this.ranges[cidr] = [ ip.toLong(info.networkAddress), ip.toLong(info.broadcastAddress) ];
-    }
-};
-
-Matcher.prototype.removeNetworkClass = function(cidr) {
-    if (!cidr) {
-        return false;
-    }
-
-    // Remove
-    delete this.ranges[cidr];
+    // Add range
+    this.ranges.push({
+        cidr:    cidr,
+        v4First: v4First,
+        v4Last:  v4Last
+    });
 };
 
 Matcher.prototype.contains = function(addr) {
-    if (!ip.isV4Format(addr)) {
+    // Parse input address
+    try {
+        addr = ip6addr.parse(addr);
+    } catch(err) {
         return false;
     }
 
-    // Convert to decimal
-    addr = ip.toLong(addr);
+    // Optimization: if it's an IPv4, we compare only the numeric version
+    // of the first/last address. We wrap it in a try/catch because addr.toLong()
+    // may throw an exception (even if it shouldn't because we check the kind())
+    if (addr.kind() === "ipv4") {
+        try {
+            var numericAddr = addr.toLong();
 
-    for (var i in this.ranges) {
-        if (this.ranges.hasOwnProperty(i) && addr >= this.ranges[i][0] && addr <= this.ranges[i][1]) {
+            for (var i = 0, length = this.ranges.length; i < length; i++) {
+                var range = this.ranges[i];
+
+                if (range.v4First !== null && range.v4Last !== null && range.v4First <= numericAddr && range.v4Last >= numericAddr) {
+                    return true;
+                }
+            }
+
+            return false;
+        } catch(ignored) {}
+    }
+
+    // Fallback to the slower comparison using the native methods
+    // provided by the ip6addr module
+    for (var i = 0, length = this.ranges.length; i < length; i++) {
+        if (this.ranges[i].cidr.contains(addr)) {
             return true;
         }
     }

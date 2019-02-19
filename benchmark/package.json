@@ -1,0 +1,14 @@
+{
+  "name": "node-cidr-matcher-benchmark",
+  "version": "1.0.0",
+  "description": "",
+  "main": "benchmark.js",
+  "author": "Marco Pracucci",
+  "license": "MIT",
+  "devDependencies": {
+    "cidr-matcher": "^1.0.5",
+    "ip-range-check": "0.0.2",
+    "is-in-subnet": "^1.9.0"
+  },
+  "dependencies": {}
+}

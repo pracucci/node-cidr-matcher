@@ -1,7 +1,10 @@
 # Changes
 
- - Dependencies
-   - Upgraded `ip` from `1.0.2` to `1.1.5`
+### 2019-02-19 2.0.0
+ - **BREAKING CHANGE**: a network class must always be in CIDR notation (ending with `/number`) otherwise will throw an `Error`
+ - **BREAKING CHANGE**: removed `Matcher.removeNetworkClass()`
+ - Added IPv6 support to `Matcher`
+ - Replaced `ip` module dependency with `ip6addr`
 
 ### 2017-03-30 1.0.5
  - IMPROVEMENT: replaced `chai` with `assert`, reducing devDependencies size (see [issue #4](https://github.com/pracucci/node-cidr-matcher/issues/4) - thanks to [christian-fei](https://github.com/christian-fei))

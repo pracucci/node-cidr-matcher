@@ -1,6 +1,6 @@
 # CIDR Matcher
 
-Fast CIDR matcher. Given an input IPv4 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation. This module is based upon the great [node-ip](https://github.com/indutny/node-ip.git) module.
+Fast CIDR matcher. Given an input IPv4 or IPv6 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation. This module is based upon the great [node-ip](https://github.com/indutny/node-ip.git) module.
 
 
 ## Installation
@@ -23,7 +23,7 @@ git clone https://github.com/pracucci/node-cidr-matcher.git
 
 var CIDRMatcher = require('cidr-matcher');
 
-var matcher = new CIDRMatcher([ '192.168.1.0/24', '192.168.2.1/32' ]);
+var matcher = new CIDRMatcher([ '2a05:d07c:2000:0:0:0:0:0/120', '192.168.1.0/24', '192.168.2.3/32', '192.168.3.2/32' ]);
 
 matcher.contains('192.168.1.1'); // returns true
 matcher.contains('192.168.1.2'); // returns true
@@ -38,6 +38,9 @@ matcher.containsAny([ '192.168.1.1', '192.168.1.2' ]); // return true
 matcher.containsAny([ '192.168.2.1', '192.168.2.2' ]); // return true
 matcher.containsAny([ '192.168.3.1', '192.168.3.2' ]); // return false
 
+assert.ok(matcher.contains('2a05:d07c:2000:0:0:0:0:0'));  // return true
+assert.ok(matcher.contains('2a05:d07c:2000:0:0:0:0:ff')); // return true
+assert.ok(matcher.contains('2a05:d07c:3000:0:0:0:0:0'));  // return false
 
 // You can also add / remove network classes on-the-fly
 matcher.addNetworkClass('192.168.5.0/24');
@@ -46,6 +49,24 @@ matcher.contains('192.168.5.1'); // returns true
 matcher.removeNetworkClass('192.168.5.0/24');
 matcher.contains('192.168.5.1'); // returns false
 ```
+
+
+## Benchmark
+
+The following table shows the execution of `benchmark/` across different versions of this module and other modules you can find on npm. Each benchmark is **executed with a random set of 25000 IP addresses**, where each IP is checked against each network range (CIDR) in the test dataset.
+
+| Module           | Version | Dataset               | Execution time |
+| ---------------- | ------- | --------------------- | -------------- |
+| _This one_       | `2.0.0` | AWS IPv4 (1385 CIDRs) | `184 ms`       |
+| _This one_       | `2.0.0` | AWS IPv6 (474 CIDRs)  | `1844 ms`      |
+| _This one_       | `1.0.5` | AWS IPv4 (1385 CIDRs) | `2769 ms`      |
+| _This one_       | `1.0.5` | AWS IPv6 (474 CIDRs)  | _Unsupported_  |
+| `is-in-subnet`   | `1.9.0` | AWS IPv4 (1385 CIDRs) | `96106 ms`     |
+| `is-in-subnet`   | `1.9.0` | AWS IPv6 (474 CIDRs)  | `33482 ms`     |
+| `ip-range-check` | `0.0.2` | AWS IPv4 (1385 CIDRs) | `390134 ms`    |
+| `ip-range-check` | `0.0.2` | AWS IPv6 (474 CIDRs)  | `73083 ms`     |
+
+_If you're aware of any other module that implements the IP in CIDR and you wanna see it benchmarked, please open an Issue or submit a PR._
 
 
 ## Contribute
