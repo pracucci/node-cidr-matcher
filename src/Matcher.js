@@ -1,11 +1,11 @@
-var ip = require('ip');
+var ip6addr = require('ip6addr');
 
 
 var Matcher = function(classes) {
     classes = classes || [];
 
     // Init
-    this.ranges = {};
+    this.ranges = [];
 
     // Import network classes
     for (var i = 0; i < classes.length; i++) {
@@ -13,44 +13,24 @@ var Matcher = function(classes) {
     }
 };
 
-Matcher.prototype.addNetworkClass = function(cidr) {
-    // Ensure the input string is a CIDR
-    if (ip.isV4Format(cidr)) {
-        cidr += '/32';
-    }
+Matcher.prototype.addNetworkClass = function(input) {
+    var cidr = ip6addr.createCIDR(input);
 
-    // Check if already added
-    if (this.ranges[cidr]) {
-        return;
-    }
-
-    var info = ip.cidrSubnet(cidr);
-
-    // Add
-    if (info) {
-        this.ranges[cidr] = [ ip.toLong(info.networkAddress), ip.toLong(info.broadcastAddress) ];
-    }
-};
-
-Matcher.prototype.removeNetworkClass = function(cidr) {
-    if (!cidr) {
-        return false;
-    }
-
-    // Remove
-    delete this.ranges[cidr];
+    // Add range
+    this.ranges.push(cidr);
 };
 
 Matcher.prototype.contains = function(addr) {
-    if (!ip.isV4Format(addr)) {
+    // Parse input address
+    try {
+        addr = ip6addr.parse(addr);
+    } catch(err) {
         return false;
     }
 
-    // Convert to decimal
-    addr = ip.toLong(addr);
-
-    for (var i in this.ranges) {
-        if (this.ranges.hasOwnProperty(i) && addr >= this.ranges[i][0] && addr <= this.ranges[i][1]) {
+    // Compare the input address against each network range
+    for (var i = 0, length = this.ranges.length; i < length; i++) {
+        if (this.ranges[i].contains(addr)) {
             return true;
         }
     }
