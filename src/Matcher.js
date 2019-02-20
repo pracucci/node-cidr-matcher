@@ -28,8 +28,7 @@ Matcher.prototype.contains = function(addr) {
         return false;
     }
 
-    // Fallback to the slower comparison using the native methods
-    // provided by the ip6addr module
+    // Compare the input address against each network range
     for (var i = 0, length = this.ranges.length; i < length; i++) {
         if (this.ranges[i].contains(addr)) {
             return true;
