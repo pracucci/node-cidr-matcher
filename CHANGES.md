@@ -1,6 +1,9 @@
 # Changes
 
-### 2019-02-19 2.0.0
+### 2019-02-20 2.1.0
+ - Optimized IPv4 address against IPv4 CIDRs by a 20x factor
+
+### 2019-02-20 2.0.0
  - **BREAKING CHANGE**: a network class must always be in CIDR notation (ending with `/number`) otherwise will throw an `Error`
  - **BREAKING CHANGE**: removed `Matcher.removeNetworkClass()`
  - Added IPv6 support to `Matcher`
