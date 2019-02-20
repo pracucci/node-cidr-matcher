@@ -177,6 +177,33 @@ describe('Matcher', function() {
             assert.ok(matcher.contains('192.168.3.2'));
             assert.ok(!matcher.contains('192.168.3.3'));
         });
+
+        it('should support IPv4 detection in a IPv6 network range', function() {
+            var matcher = new Matcher([ '0:0:0:0:0:ffff:102:304/128' ]);
+
+            assert.ok(!matcher.contains('1.2.3.3'));
+            assert.ok(matcher.contains('1.2.3.4'));
+            assert.ok(!matcher.contains('1.2.3.5'));
+        });
+
+        it('should support IPv6 detection in a IPv4 network range', function() {
+            var matcher = new Matcher([ '1.2.3.4/32' ]);
+
+            assert.ok(!matcher.contains('0:0:0:0:0:ffff:102:303'));
+            assert.ok(matcher.contains('0:0:0:0:0:ffff:102:304'));
+            assert.ok(!matcher.contains('0:0:0:0:0:ffff:102:305'));
+        });
+
+        it('should support IPv4 detection in a IPv6 network range spanning outside the IPv4 space', function() {
+            var matcher = new Matcher([ '0:0:0:0:0:0:0:0/64' ]);
+
+            assert.ok(matcher.contains('0.0.0.0'));
+            assert.ok(matcher.contains('255.255.255.255'));
+
+            assert.ok(matcher.contains('0:0:0:0:0:0:0:0'));
+            assert.ok(matcher.contains('0:0:0:0:ffff:ffff:ffff:ffff'));
+            assert.ok(!matcher.contains('0:0:0:1000:ffff:ffff:ffff:ffff'));
+        });
     });
 
 
