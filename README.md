@@ -57,9 +57,9 @@ The following table shows the execution of `benchmark/` across different version
 
 | Module           | Version | Dataset               | Execution time |
 | ---------------- | ------- | --------------------- | -------------- |
-| _This one_       | `2.0.0` | AWS IPv4 (1385 CIDRs) | `9924 ms`      |
-| _This one_       | `2.0.0` | AWS IPv6 (474 CIDRs)  | `1844 ms`      |
-| _This one_       | `1.0.5` | AWS IPv4 (1385 CIDRs) | `2769 ms` (_without IPv4 over IPv6 support_) |
+| _This one_       | `2.0.0` | AWS IPv4 (1385 CIDRs) | `228 ms`       |
+| _This one_       | `2.0.0` | AWS IPv6 (474 CIDRs)  | `1799 ms`      |
+| _This one_       | `1.0.5` | AWS IPv4 (1385 CIDRs) | `2895 ms` (_without IPv4 over IPv6 support_) |
 | _This one_       | `1.0.5` | AWS IPv6 (474 CIDRs)  | _Unsupported_  |
 | `is-in-subnet`   | `1.9.0` | AWS IPv4 (1385 CIDRs) | `96106 ms`     |
 | `is-in-subnet`   | `1.9.0` | AWS IPv6 (474 CIDRs)  | `33482 ms`     |
