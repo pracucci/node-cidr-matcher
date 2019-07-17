@@ -1,5 +1,8 @@
 # Changes
 
+### 2019-07-17 2.1.1
+ - Upgraded `mocha`, addressing [code injection vulnerability](https://www.npmjs.com/advisories/813)
+
 ### 2019-02-20 2.1.0
  - Optimized IPv4 address against IPv4 CIDRs by a 20x factor
 
