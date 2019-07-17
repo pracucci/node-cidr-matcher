@@ -28,6 +28,6 @@
     "ip6addr": "^0.2.2"
   },
   "devDependencies": {
-    "mocha": "^6.0.0"
+    "mocha": "^6.1.4"
   }
 }
