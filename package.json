@@ -1,6 +1,6 @@
 {
   "name": "cidr-matcher",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Fast CIDR matcher. Given an input IPv4 address, it checks if it's inside a set of IP ranges, expressed in CIDR notation.",
   "main": "index.js",
   "homepage": "https://github.com/pracucci/node-cidr-matcher",
