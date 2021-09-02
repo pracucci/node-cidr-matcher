@@ -1,5 +1,6 @@
 const CIDRMatcherMaster = require("../src/Matcher");
 const CIDRMatcher105    = require("cidr-matcher");
+const netparser         = require("netparser");
 const { isInSubnet }    = require("is-in-subnet");
 const ipRangeCheck      = require("ip-range-check");
 
@@ -73,6 +74,20 @@ runBenchmark("node-cidr-matcher", "1.0.5", "ipv4", (cidrs, ips) => {
     let matcher = new CIDRMatcher105(cidrs);
     for (let i = 0; i < ips.length; i++) {
         matcher.contains(ips[i]);
+    }
+});
+
+runBenchmark("netparser", "1.8.1", "ipv4", (cidrs, ips) => {
+    let matcher = new netparser.Matcher(cidrs);
+    for (let i = 0; i < ips.length; i++) {
+        matcher.has(ips[i]);
+    }
+});
+
+runBenchmark("netparser", "1.8.1", "ipv6", (cidrs, ips) => {
+    let matcher = new netparser.Matcher(cidrs);
+    for (let i = 0; i < ips.length; i++) {
+        matcher.has(ips[i]);
     }
 });
 
