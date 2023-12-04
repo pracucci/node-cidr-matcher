@@ -28,15 +28,15 @@ var matcher = new CIDRMatcher([ '2a05:d07c:2000:0:0:0:0:0/120', '192.168.1.0/24'
 matcher.contains('192.168.1.1'); // returns true
 matcher.contains('192.168.1.2'); // returns true
 
-matcher.contains('192.168.2.1'); // returns true
+matcher.contains('192.168.2.1'); // returns false
 matcher.contains('192.168.2.2'); // returns false
 
 matcher.contains('192.168.3.1'); // returns false
-matcher.contains('192.168.3.2'); // returns false
+matcher.contains('192.168.3.2'); // returns true
 
 matcher.containsAny([ '192.168.1.1', '192.168.1.2' ]); // return true
-matcher.containsAny([ '192.168.2.1', '192.168.2.2' ]); // return true
-matcher.containsAny([ '192.168.3.1', '192.168.3.2' ]); // return false
+matcher.containsAny([ '192.168.2.1', '192.168.2.2' ]); // return false
+matcher.containsAny([ '192.168.3.1', '192.168.3.2' ]); // return true
 
 assert.ok(matcher.contains('2a05:d07c:2000:0:0:0:0:0'));  // return true
 assert.ok(matcher.contains('2a05:d07c:2000:0:0:0:0:ff')); // return true
